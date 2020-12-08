@@ -8,8 +8,26 @@
     <h2>Welcome to HyperJob!</h2>
     <div><a href="/login">Login</a></div>
     <div><a href="/signup">Signup</a></div>
+    <div><a href="/logout">Logout</a></div>
     <div><a href="/vacancies">Vacancies</a></div>
     <div><a href="/resumes">Resumes</a></div>
     <div><a href="/home">Home</a></div>
+
+    {% if user_type == "staff" %}
+        <h3>Create new vacancy</h3>
+        <a href="vacancy/new/">Add vacancy</a>
+        <form method="post" action="vacancy/new/">{% csrf_token %}
+            <input type="text" name="description">
+            <button type="submit">Submit</button>
+        </form>
+    {% endif %}
+    {% if user_type == "user" %}
+        <h3>Create new resume</h3>
+        <a href="resume/new/">Add resume</a>
+        <form method="post" action="resume/new/">{% csrf_token %}
+            <input type="text" name="description">
+            <button type="submit">Submit</button>
+        </form>
+    {% endif %}
 </body>
 </html>

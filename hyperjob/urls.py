@@ -15,18 +15,29 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from menu.views import MainMenuView
+from menu.views import MainMenuView, VacancyNewView, ResumeNewView
 from vacancy.views import VacancyListView
 from resume.views import ResumeListView, ResumeSignupView, ResumeLoginView
 from django.views.generic import RedirectView
+from django.contrib.auth.views import LogoutView
+
 
 urlpatterns = [
     path('', MainMenuView.as_view()),
     path('vacancies/', VacancyListView.as_view()),
     path('resumes/', ResumeListView.as_view()),
+    path('vacancies', RedirectView.as_view(url='/vacancies/')),
+    path('resumes', RedirectView.as_view(url='/resumes/')),
+    path('vacancy/new', VacancyNewView.as_view()),
+    path('resume/new', ResumeNewView.as_view()),
+    path('vacancy/new/', VacancyNewView.as_view()),
+    path('resume/new/', ResumeNewView.as_view()),
     path('admin/', admin.site.urls),
-    #path('signup/', ResumeSignupView.as_view()),
-    #path('login/', ResumeLoginView.as_view()),
+    path('signup', ResumeSignupView.as_view()),
+    path('login', ResumeLoginView.as_view()),
     path('login/', RedirectView.as_view(url='/login')),
     path('signup/', RedirectView.as_view(url='/signup')),
+    path('logout', LogoutView.as_view()),
+    path('home/', RedirectView.as_view(url='/')),
+    path('home', RedirectView.as_view(url='/home/')),
 ]
